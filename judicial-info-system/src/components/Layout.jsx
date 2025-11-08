@@ -1,7 +1,8 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import "../styles/Layout.css"; // create this next!
+import "../styles/Layout.css"; // layout base styles
+import "../styles/DashboardInputs.css"; // unified enlarged input styles for dashboards
 
 export default function Layout({ roleName, actions, active, setActive, children }) {
   return (

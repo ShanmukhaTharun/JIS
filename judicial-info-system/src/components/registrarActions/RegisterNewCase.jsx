@@ -1,12 +1,28 @@
 import React, { useState } from "react";
+import { CasesAPI } from "../../services/api";
+import { useCases } from "../../context/CasesContext.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function RegisterNewCase() {
   const [caseTitle, setCaseTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleRegister = () => {
-    alert(`New case registered:\nTitle: ${caseTitle}\nDescription: ${description}`);
-    setCaseTitle(""); setDescription("");
+  const { refresh } = useCases();
+  const { user } = useAuth();
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async () => {
+    if (!caseTitle) return;
+    try {
+      setLoading(true); setMsg("");
+  const created = await CasesAPI.create({ title: caseTitle, type: 'Pending', court: '', judge: '', lawyer: '', accused: [], description, registeredBy: user?.id });
+      setMsg(`Registered case ${created.id}`);
+      setCaseTitle(""); setDescription("");
+      refresh();
+    } catch (e) {
+      setMsg(e.message);
+    } finally { setLoading(false); }
   };
 
   return (
@@ -26,7 +42,8 @@ export default function RegisterNewCase() {
         rows={4}
         style={{ width: "100%" }}
       />
-      <button onClick={handleRegister} style={{ marginTop: "10px" }}>Register</button>
+  <button onClick={handleRegister} style={{ marginTop: "10px" }} disabled={loading}>{loading ? 'Registering...' : 'Register'}</button>
+  {msg && <div style={{ marginTop: '6px', color: '#0d6b0d' }}>{msg}</div>}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
+import "./styles/Landing.css"; // landing page specific styling
 
 // Components
 import LandingNavbar from "./components/LandingNavbar";
+import Footer from "./components/Footer";
 
 // Auth + Landing pages
 import Signup from "./pages/Signup";
@@ -16,6 +18,7 @@ import Judge from "./pages/Judge";
 import Lawyer from "./pages/Lawyer";
 import Police from "./pages/Police";
 import User from "./pages/User";
+// Auth temporarily disabled: role pages open for review
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -44,9 +47,25 @@ export default function App() {
           className="carousel-inner"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {images.map((img, index) => (
+          {images.map((img, index) => {
+            const fallbacks = [
+              "/fallback-justice-1.svg",
+              "/fallback-justice-2.svg",
+              "/fallback-justice-3.svg",
+            ];
+            return (
             <div className="carousel-item" key={index}>
-              <img src={img} alt={`Slide ${index + 1}`} />
+              <img
+                src={img}
+                alt={`Slide ${index + 1}`}
+                loading="eager"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = fallbacks[index] || fallbacks[0];
+                }}
+                style={{ display: 'block' }}
+              />
               <div className="carousel-caption">
                 <h2>
                   {[
@@ -58,7 +77,8 @@ export default function App() {
                 <p>Empowering citizens through digital transformation.</p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -78,10 +98,8 @@ export default function App() {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="footer">
-        <p>© 2025 Judicial Information System | All Rights Reserved</p>
-      </div>
+  {/* Footer */}
+  <Footer />
     </>
   );
 
@@ -99,11 +117,11 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
 
         {/* Role Pages */}
-        <Route path="/registrar" element={<Registrar />} />
-        <Route path="/judge" element={<Judge />} />
-        <Route path="/lawyer" element={<Lawyer />} />
-        <Route path="/police" element={<Police />} />
-        <Route path="/user" element={<User />} />
+  <Route path="/registrar" element={<Registrar />} />
+  <Route path="/judge" element={<Judge />} />
+  <Route path="/lawyer" element={<Lawyer />} />
+  <Route path="/police" element={<Police />} />
+  <Route path="/user" element={<User />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />

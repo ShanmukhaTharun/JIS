@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { CasesAPI } from "../../services/api";
+import { useCases } from "../../context/CasesContext.jsx";
 
 export default function UpdateCaseInfo() {
   const [caseId, setCaseId] = useState("");
   const [status, setStatus] = useState("");
+  const [lawyer, setLawyer] = useState("");
 
-  const handleUpdate = () => {
-    alert(`Case updated:\nID: ${caseId}\nNew Status: ${status}`);
-    setCaseId(""); setStatus("");
+  const { refresh } = useCases();
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleUpdate = async () => {
+    if (!caseId || (!status && !lawyer)) return;
+    try {
+      setLoading(true); setMsg("");
+      const payload = {};
+      if (status) payload.status = status;
+      if (lawyer) payload.lawyer = lawyer;
+      const updated = await CasesAPI.update(caseId, payload);
+      setMsg(`Updated ${updated.id}${status ? ` status -> ${updated.status}` : ''}${lawyer ? ` lawyer -> ${updated.lawyer}` : ''}`);
+      setCaseId(""); setStatus(""); setLawyer("");
+      refresh();
+    } catch (e) { setMsg(e.message); } finally { setLoading(false); }
   };
 
   return (
@@ -20,14 +34,23 @@ export default function UpdateCaseInfo() {
         onChange={(e) => setCaseId(e.target.value)}
         style={{ width: "100%", marginBottom: "6px" }}
       />
-      <input
-        type="text"
-        placeholder="New Status"
+      <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}
-        style={{ width: "100%" }}
+        style={{ width: '100%', marginBottom: '6px' }}
+      >
+        <option value="">Select New Status (optional)</option>
+        {['Pending','Approved','Adjourned','In Progress','Closed','Rejected'].map(s => <option key={s} value={s}>{s}</option>)}
+      </select>
+      <input
+        type="text"
+        placeholder="Assign/Edit Lawyer (optional)"
+        value={lawyer}
+        onChange={(e) => setLawyer(e.target.value)}
+        style={{ width: '100%' }}
       />
-      <button onClick={handleUpdate} style={{ marginTop: "10px" }}>Update</button>
+  <button onClick={handleUpdate} style={{ marginTop: "10px" }} disabled={loading}>{loading ? 'Updating...' : 'Update'}</button>
+  {msg && <div style={{ marginTop: '6px', color: '#0d6b0d' }}>{msg}</div>}
     </div>
   );
 }

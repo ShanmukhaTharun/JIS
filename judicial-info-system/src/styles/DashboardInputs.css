@@ -1,0 +1,69 @@
+/* Unified larger, accessible input styling across all dashboard action panels.
+   Applied automatically via Layout import so any component inside dashboards benefits.
+*/
+
+/* Scope to main layout area to avoid overriding landing/auth forms */
+.layout-main input[type="text"],
+.layout-main input[type="password"],
+.layout-main input[type="email"],
+.layout-main input[type="date"],
+.layout-main input[type="number"],
+.layout-main select,
+.layout-main textarea {
+  width: 100%;
+  padding: 14px 16px; /* Larger padding for comfortable click target */
+  font-size: 16px; /* Slightly larger font */
+  line-height: 1.4;
+  border: 1.5px solid #d7d7d7;
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: "Poppins", sans-serif;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.layout-main textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.layout-main input:focus,
+.layout-main select:focus,
+.layout-main textarea:focus {
+  outline: none;
+  border-color: #b22222;
+  box-shadow: 0 0 0 3px rgba(178,34,34,0.15);
+}
+
+/* Provide consistent disabled state */
+.layout-main input:disabled,
+.layout-main select:disabled,
+.layout-main textarea:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* Buttons inside action forms - gently larger while preserving brand color */
+.layout-main button, .layout-main .ja-btn {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+/* Improve spacing between form controls */
+.layout-main form > *:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+/* Table search input (e.g., ViewAllCases) specific refinement */
+.layout-main .table-search-input {
+  max-width: 380px;
+}
+
+/* Prevent overriding of special narrow inline inputs if explicitly sized inline */
+.layout-main input[style*="width"] {
+  /* keep developer inline width but still enlarge vertical rhythm */
+  padding-top: 12px;
+  padding-bottom: 12px;
+}

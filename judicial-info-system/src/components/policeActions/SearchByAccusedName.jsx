@@ -6,8 +6,10 @@ export default function SearchByAccusedName() {
   const [results, setResults] = useState([]);
 
   const handleSearch = () => {
+    const q = name.trim().toLowerCase();
+    if (!q) return setResults([]);
     const found = sampleCases.filter((c) =>
-      c.accused.toLowerCase().includes(name.toLowerCase())
+      Array.isArray(c.accused) && c.accused.some(a => a.toLowerCase().includes(q))
     );
     setResults(found);
   };
@@ -27,7 +29,10 @@ export default function SearchByAccusedName() {
           <p>No results found.</p>
         ) : (
           results.map((c) => (
-            <pre key={c.id}>{JSON.stringify(c, null, 2)}</pre>
+            <div key={c.id} style={{ marginBottom: "8px" }}>
+              <strong>{c.id}</strong> — {c.title}<br />
+              Accused: {c.accused.join(", ")}
+            </div>
           ))
         )}
       </div>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useAuth } from "../context/AuthContext.jsx";
 import "./Login.css";
 
 export default function Login() {
@@ -8,49 +10,46 @@ export default function Login() {
   const [role, setRole] = useState("User");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // (Frontend-only) mock validation
-    if (!emailOrId || !password) {
-      alert("Please fill all fields.");
-      return;
+    setError("");
+    if (!emailOrId || !password) return setError("All fields required.");
+    try {
+      setLoading(true);
+  const user = await login(emailOrId, password);
+      const r = user.role?.toLowerCase();
+      navigate(`/${r === 'user' ? 'user' : r}`);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    alert(`Login Successful! Redirecting to ${role} dashboard...`);
-
-    // redirect based on role
-    switch (role.toLowerCase()) {
-      case "registrar":
-        navigate("/registrar");
-        break;
-      case "judge":
-        navigate("/judge");
-        break;
-      case "lawyer":
-        navigate("/lawyer");
-        break;
-      case "police":
-        navigate("/police");
-        break;
-      case "user":
-      default:
-        navigate("/user");
-        break;
-    }
+  const backBtnStyle = {
+    display: 'inline-flex', alignItems: 'center', gap: 8,
+    background: '#b30000', color: '#fff', padding: '8px 12px',
+    borderRadius: 8, border: 'none', cursor: 'pointer', marginBottom: 12
   };
 
   return (
     <div className="login-container">
+      <button type="button" onClick={() => navigate(-1)} style={backBtnStyle} aria-label="Go back">
+        <ArrowLeft size={18} /> Back
+      </button>
       <form className="login-box" onSubmit={handleLogin}>
         <h2>Login to Judiciary Information System</h2>
 
-        <label>Email or ID</label>
+  <label>Email or Generated ID</label>
         <input
           type="text"
           value={emailOrId}
           onChange={(e) => setEmailOrId(e.target.value)}
-          placeholder="Enter your Email or ID"
+          placeholder="Enter your Email or Generated ID"
           required
         />
 
@@ -72,8 +71,12 @@ export default function Login() {
           <option>User</option>
         </select>
 
-        <button type="submit">Login</button>
+  {error && <div style={{ color: 'red', marginBottom: '8px' }}>{error}</div>}
+  <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
       </form>
+      <div style={{ marginTop: '12px', fontSize: '14px', textAlign: 'center' }}>
+        Don't have an account? <Link to="/signup" style={{ color: '#0077cc', textDecoration: 'underline' }}>Sign Up</Link>
+      </div>
     </div>
   );
 }
