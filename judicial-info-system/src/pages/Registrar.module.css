@@ -1,0 +1,29 @@
+/* Registrar: Royal Blue + White */
+.page { min-height: 100vh; display: flex; flex-direction: column; }
+.navbar {
+  background: linear-gradient(90deg,#163ea6,#2a5df4);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow: 0 4px 14px rgba(22,62,166,0.15);
+}
+.brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.05rem; }
+.brand-icon{ font-size:1.2rem; }
+.role-badge{ margin-left:10px; background:#fff; color:#163ea6; padding:4px 8px; border-radius:6px; font-weight:600; font-size:0.85rem; }
+.nav-right{ display:flex; gap:10px; align-items:center; }
+.nav-btn{ background:#fff; color:#163ea6; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600; }
+.nav-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(22,62,166,0.12); }
+
+/* Layout */
+.container{ display:flex; gap:20px; padding:24px; max-width:1200px; margin:0 auto; width:100%; box-sizing:border-box; }
+.sidebar{ width:260px; background:#f7f9ff; padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(22,62,166,0.06); }
+.action-list{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+.action-btn{ background:transparent; border:1px solid transparent; text-align:left; padding:10px 12px; border-radius:8px; cursor:pointer; width:100%; font-weight:600; color:#163ea6; }
+.action-btn:hover{ background:#e9f0ff; transform:translateX(4px); }
+.active{ background:#163ea6; color:#fff; box-shadow:0 8px 20px rgba(22,62,166,0.12); }
+
+/* Main */
+.main{ flex:1; background:linear-gradient(180deg,#fff,#fbfdff); padding:20px; border-radius:12px; box-shadow:0 6px 20px rgba(19,33,68,0.04); }
+.heading{ color:#163ea6; margin-bottom:12px; }
+.placeholder{ padding:16px; border-radius:8px; background:#ffffff; border:1px dashed rgba(22,62,166,0.06); color:#333; }
+@media (max-width:900px){ .container{ flex-direction:column; padding:16px; } .sidebar{ width:100%; order:2; } .main{ order:1;} }

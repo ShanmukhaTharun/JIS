@@ -1,0 +1,19 @@
+/* User: Teal + White */
+.page { min-height:100vh; display:flex; flex-direction:column; background:#f6fffb; }
+.navbar {
+  background: linear-gradient(90deg,#0b7d77,#0fb398);
+  color:#fff; padding:1rem 1.5rem; box-shadow:0 6px 18px rgba(11,123,119,0.12);
+}
+.brand{ display:flex; align-items:center; gap:10px; font-weight:700; }
+.role-badge{ background:#e9fffb; color:#0b7d77; padding:4px 8px; border-radius:6px; font-weight:600; }
+
+.container{ display:flex; gap:20px; padding:24px; max-width:1200px; margin:0 auto; width:100%; }
+.sidebar{ width:260px; background:#ffffff; padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(11,123,119,0.06); }
+.action-btn{ background:transparent; border:none; text-align:left; padding:10px 12px; border-radius:8px; cursor:pointer; width:100%; font-weight:600; color:#0b7d77; }
+.action-btn:hover{ background:#ecfffb; transform:translateX(4px); }
+.active{ background:#0b7d77; color:#fff; }
+
+.main{ flex:1; background:#fff; padding:20px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.04); }
+.heading{ color:#0b7d77; margin-bottom:12px; }
+.placeholder{ padding:16px; background:#fff; border-radius:8px; border:1px dashed rgba(11,123,119,0.06); }
+@media (max-width:900px){ .container{ flex-direction:column;} .sidebar{ width:100%; order:2 } .main{ order:1 } }

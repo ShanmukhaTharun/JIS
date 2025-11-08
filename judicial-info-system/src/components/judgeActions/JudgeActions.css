@@ -1,0 +1,10 @@
+.ja-panel { padding: 10px 6px; }
+.ja-form { display:flex; flex-direction:column; gap:10px; max-width:720px; }
+.ja-input { padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px; }
+.ja-textarea { min-height:120px; padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px; }
+.ja-btn { align-self:flex-start; padding:10px 14px; background:#b22222; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+.ja-btn:hover { background:#d13a3a; }
+.ja-info { margin-top:10px; color:#0d6b0d; background:#ecffdce0; padding:8px; border-radius:6px; }
+.ja-error { margin-top:10px; color:#a10000; background:#ffecec; padding:8px; border-radius:6px; }
+.case-card { padding:14px; border-radius:8px; background:#fff; border:1px solid #eee; box-shadow:0 6px 18px rgba(0,0,0,0.03); margin-top:12px; }
+.case-section { margin-top:12px; padding-top:8px; border-top:1px dashed #f0e6e6; }

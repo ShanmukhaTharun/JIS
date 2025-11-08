@@ -1,0 +1,19 @@
+/* Police: Dark Slate Blue + Light Gray */
+.page { min-height:100vh; display:flex; flex-direction:column; background:#f3f5f9; }
+.navbar {
+  background: linear-gradient(90deg,#2f3b87,#3e4bb0);
+  color:#fff; padding:1rem 1.5rem; box-shadow:0 6px 18px rgba(46,55,139,0.12);
+}
+.brand{ display:flex; align-items:center; gap:10px; font-weight:700; }
+.role-badge{ background:#eef2ff; color:#2f3b87; padding:4px 8px; border-radius:6px; font-weight:600; }
+
+.container{ display:flex; gap:20px; padding:24px; max-width:1200px; margin:0 auto; width:100%; }
+.sidebar{ width:260px; background:#fbfdff; padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(46,55,139,0.06); }
+.action-btn{ background:transparent; border:none; text-align:left; padding:10px 12px; border-radius:8px; cursor:pointer; width:100%; font-weight:600; color:#2f3b87; }
+.action-btn:hover{ background:#eef3ff; transform:translateX(4px); }
+.active{ background:#2f3b87; color:#fff; }
+
+.main{ flex:1; background:#fff; padding:20px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.04); }
+.heading{ color:#2f3b87; margin-bottom:12px; }
+.placeholder{ padding:16px; background:#fff; border-radius:8px; border:1px dashed rgba(47,59,135,0.06); }
+@media (max-width:900px){ .container{ flex-direction:column;} .sidebar{ width:100%; order:2 } .main{ order:1 } }

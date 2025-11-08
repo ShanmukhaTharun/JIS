@@ -1,0 +1,45 @@
+.profile-page {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .profile-page h2 {
+    color: #b22222;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .profile-card p {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  
+  .profile-card label {
+    display: block;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .profile-card textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s;
+  }
+  
+  .profile-card textarea:focus {
+    border-color: #b22222;
+  }
+  

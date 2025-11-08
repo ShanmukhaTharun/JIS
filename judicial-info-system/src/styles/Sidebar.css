@@ -1,0 +1,105 @@
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff, #f8f9fa);
+  border-right: 2px solid #e0e0e0;
+  padding: 24px 18px;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+}
+
+/* ===== Sidebar Title ===== */
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #b22222;
+  margin-bottom: 18px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #b22222;
+  padding-bottom: 6px;
+}
+
+/* ===== Sidebar Buttons ===== */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  text-align: left;
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-btn:hover {
+  background: #b22222;
+  color: #fff;
+  border-color: #b22222;
+  transform: translateX(4px);
+}
+
+.sidebar-btn.active {
+  background: #b22222;
+  color: #fff;
+  border-color: #b22222;
+  font-weight: 600;
+}
+
+/* ===== Sidebar Content Area ===== */
+.sidebar-content {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: #fff4f4;
+  border-radius: 10px;
+  border: 1.5px solid #f3caca;
+  box-shadow: 0 1px 5px rgba(178, 34, 34, 0.15);
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== Optional Icons for Modern Feel ===== */
+.sidebar-btn svg {
+  font-size: 1.1rem;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 16px;
+  }
+
+  .sidebar-title {
+    text-align: center;
+  }
+
+  .sidebar-btn {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .sidebar-content {
+    text-align: center;
+  }
+}

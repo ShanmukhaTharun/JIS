@@ -1,0 +1,45 @@
+/* LandingNavbar.css */
+.landing-navbar {
+    background-color: #b22222; /* same red theme */
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(178,34,34,0.3);
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .nav-btn {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  
+  .nav-btn:hover {
+    background: white;
+    color: #b22222;
+  }
+  
