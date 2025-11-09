@@ -2,10 +2,12 @@ import React from "react";
 import { useCases } from "../../context/CasesContext.jsx";
 
 export default function ViewCaseStatus() {
+  const { cases } = useCases();
+  const hasCases = cases.length > 0;
   return (
     <div>
       <h3>All Your Cases</h3>
-  {useCases().cases.length === 0 ? (
+      {!hasCases ? (
         <p>No cases available.</p>
       ) : (
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -18,13 +20,13 @@ export default function ViewCaseStatus() {
             </tr>
           </thead>
           <tbody>
-      {useCases().cases.map((c) => (
+            {cases.map((c) => (
               <tr key={c.id}>
                 <td style={{ padding: "8px", border: "1px solid #ccc" }}>{c.id}</td>
-        <td style={{ padding: "8px", border: "1px solid #ccc" }}>{c.title}</td>
+                <td style={{ padding: "8px", border: "1px solid #ccc" }}>{c.title}</td>
                 <td style={{ padding: "8px", border: "1px solid #ccc" }}>{c.status}</td>
                 <td style={{ padding: "8px", border: "1px solid #ccc" }}>
-                  {c.hearingDates.length > 0 ? c.hearingDates[0] : "N/A"}
+                  {Array.isArray(c.hearingDates) && c.hearingDates.length > 0 ? c.hearingDates[0] : "N/A"}
                 </td>
               </tr>
             ))}

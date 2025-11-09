@@ -8,18 +8,27 @@ async function http(path, opts = {}) {
     ...opts,
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
+  const contentType = res.headers.get('content-type') || '';
   if (!res.ok) {
-    let message = 'Request failed';
-    try {
-      const data = await res.json();
-      message = data.error || message;
-    } catch (_) {
+    if (contentType.includes('application/json')) {
+      try {
+        const data = await res.json();
+        throw new Error(data.error || 'Request failed');
+      } catch (e) {
+        throw new Error(e.message || 'Request failed');
+      }
+    } else {
       const text = await res.text();
-      if (text) message = text;
+      throw new Error(text || `Request failed (${res.status})`);
     }
-    throw new Error(message);
   }
-  return res.json();
+  if (contentType.includes('application/json')) {
+    return res.json();
+  } else {
+    // Return raw text for non-JSON (avoid Unexpected token '<')
+    const raw = await res.text();
+    throw new Error(`Unexpected non-JSON response: ${contentType || 'unknown'}`);
+  }
 }
 
 // Cases
@@ -35,6 +44,22 @@ export const CasesAPI = {
   addReport: (id, report) => http(`/cases/${id}/reports`, { method: 'POST', body: { report } }),
   addDocuments: (id, documents) => http(`/cases/${id}/documents`, { method: 'POST', body: { documents } }),
   addMessage: (id, message) => http(`/cases/${id}/messages`, { method: 'POST', body: message }),
+  downloadSummary: async (id) => {
+    const url = `${API_BASE}/cases/${id}/download`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to download case summary');
+    return res.blob();
+  },
+  downloadLatestReport: async (id) => {
+    const auth = JSON.parse(localStorage.getItem('auth') || 'null');
+    const authHeader = auth?.token ? { Authorization: `Bearer ${auth.token}` } : {};
+    const res = await fetch(`${API_BASE}/cases/${id}/reports/download`, {
+      headers: { ...authHeader },
+    });
+    if (!res.ok) throw new Error('Failed to download report');
+    const blob = await res.blob();
+    return blob;
+  },
 };
 
 // Users
@@ -44,4 +69,24 @@ export const UsersAPI = {
   me: () => http('/users/me'),
   profile: (id) => http(`/users/profile/${id}`),
   updateBio: (id, bio) => http(`/users/profile/${id}`, { method: 'PATCH', body: { bio } }),
+  list: () => http('/users'),
+  adminCreate: (payload) => http('/users', { method: 'POST', body: payload }),
+  remove: (id) => http(`/users/${id}`, { method: 'DELETE' }),
+};
+
+// Payments
+export const PaymentsAPI = {
+  createCheckout: async ({ caseId, lawyer, amount, currency = 'usd', customerEmail }) => {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'http://localhost:5000/api'}/payments/checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ caseId, lawyer, amount, currency, customerEmail }),
+    });
+    if (!res.ok) {
+      let message = 'Failed to create checkout session';
+      try { const j = await res.json(); message = j.error || message; } catch {}
+      throw new Error(message);
+    }
+    return res.json();
+  },
 };

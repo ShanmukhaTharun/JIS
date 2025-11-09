@@ -6,6 +6,8 @@ import morgan from 'morgan';
 
 import caseRoutes from './routes/cases.js';
 import userRoutes from './routes/users.js';
+import paymentRoutes from './routes/payments.js';
+import activityRoutes from './routes/activity.js';
 
 const app = express();
 const corsOptions = {
@@ -30,6 +32,11 @@ app.get('/', (_req, res) => res.json({ status: 'ok' }));
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/cases', caseRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/payments', paymentRoutes);
+// Debug log before mounting activity
+console.log('[debug] Mounting /api/activity routes...');
+app.use('/api/activity', activityRoutes);
+console.log('[debug] Mounted /api/activity');
 
 // Debug: list registered routes once at startup
 function listRoutes() {
@@ -48,6 +55,10 @@ function listRoutes() {
     }
   });
   console.log('Registered routes:\n' + routes.map(r => ' - ' + r).join('\n'));
+  const hasActivity = routes.some(r => r.includes('/api/activity'));
+  if (!hasActivity) {
+    console.warn('[warn] /api/activity not found in route list');
+  }
 }
 
 const PORT = process.env.PORT || 5000;
