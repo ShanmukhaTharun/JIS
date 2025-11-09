@@ -31,6 +31,7 @@ const CaseSchema = new mongoose.Schema({
   judge: String,
   lawyer: String,
   status: String,
+  judgement: { type: String, default: '' },
   description: { type: String, default: '' },
   registeredBy: { type: String },
   accused: { type: [String], default: [] },

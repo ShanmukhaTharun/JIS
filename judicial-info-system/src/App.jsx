@@ -18,6 +18,7 @@ import Judge from "./pages/Judge";
 import Lawyer from "./pages/Lawyer";
 import Police from "./pages/Police";
 import User from "./pages/User";
+import PaymentSuccess from "./pages/PaymentSuccess.jsx";
 // Auth temporarily disabled: role pages open for review
 
 export default function App() {
@@ -122,6 +123,8 @@ export default function App() {
   <Route path="/lawyer" element={<Lawyer />} />
   <Route path="/police" element={<Police />} />
   <Route path="/user" element={<User />} />
+  <Route path="/payment/success" element={<PaymentSuccess />} />
+  <Route path="/payment/cancel" element={<HomePage />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -8,10 +8,12 @@ import DownloadCaseReports from "../components/userActions/DownloadCaseReports";
 import SubmitRequest from "../components/userActions/SubmitRequest";
 import ContactLawyer from "../components/userActions/ContactLawyer";
 import RequestCaseDetails from "../components/userActions/RequestCaseDetails";
+import BookLawyer from "../components/userActions/BookLawyer";
 
 const ACTIONS = [
   "View Case Status",
   "Download Case Reports",
+  "Book a Lawyer",
   "Submit Request",
   "Contact Lawyer",
   "Request Case Details",
@@ -20,6 +22,7 @@ const ACTIONS = [
 const ACTION_COMPONENTS = {
   "View Case Status": ViewCaseStatus,
   "Download Case Reports": DownloadCaseReports,
+  "Book a Lawyer": BookLawyer,
   "Submit Request": SubmitRequest,
   "Contact Lawyer": ContactLawyer,
   "Request Case Details": RequestCaseDetails,

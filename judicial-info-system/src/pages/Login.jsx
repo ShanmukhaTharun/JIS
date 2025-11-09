@@ -7,7 +7,6 @@ import "./Login.css";
 export default function Login() {
   const [emailOrId, setEmailOrId] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("User");
   const navigate = useNavigate();
 
   const { login } = useAuth();
@@ -62,14 +61,7 @@ export default function Login() {
           required
         />
 
-        <label>Role</label>
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option>Registrar</option>
-          <option>Judge</option>
-          <option>Lawyer</option>
-          <option>Police</option>
-          <option>User</option>
-        </select>
+  {/* Role selection removed; role is determined server-side at login */}
 
   {error && <div style={{ color: 'red', marginBottom: '8px' }}>{error}</div>}
   <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
