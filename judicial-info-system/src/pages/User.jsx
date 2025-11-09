@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+import ProfileSummary from "../components/ProfileSummary";
 
 // Import all actions
 import ViewCaseStatus from "../components/userActions/ViewCaseStatus";
@@ -30,6 +31,7 @@ export default function User() {
 
   return (
     <Layout roleName="User" actions={ACTIONS} active={active} setActive={setActive}>
+      <ProfileSummary />
       <ActiveComponent />
     </Layout>
   );

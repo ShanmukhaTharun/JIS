@@ -1,30 +1,35 @@
 import React, { useState } from "react";
-import { findCase, updateCase } from "../../data/sampleCases";
+import { CasesAPI } from "../../services/api";
+import { useCases } from "../../context/CasesContext.jsx";
 import "./JudgeActions.css";
 
 export default function ReviewEvidence() {
+  const { refresh } = useCases();
   const [caseId, setCaseId] = useState("");
   const [fileName, setFileName] = useState("");
   const [msg, setMsg] = useState("");
 
-  const handleUpload = (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
     setMsg("");
-    const c = findCase(caseId.trim());
-    if (!c) return setMsg("Case not found.");
-    const newEvidence = { id: `E${Date.now()}`, name: fileName || "Unnamed", uploadedAt: new Date().toISOString().slice(0,10) };
-    c.evidence = c.evidence || [];
-    c.evidence.push(newEvidence);
-    updateCase(c);
-    setMsg(`Evidence ${newEvidence.name} added to ${c.caseId}.`);
+    const id = caseId.trim();
+    const name = fileName.trim() || "Unnamed";
+    try {
+  const evidenceItem = await CasesAPI.addEvidence(id, name);
+      setMsg(`Evidence '${evidenceItem.name}' added to ${id}.`);
+      setFileName("");
+  refresh();
+    } catch (err) {
+      setMsg(err.message);
+    }
   };
 
   return (
     <div className="ja-panel">
       <h3>📁 Review / Upload Evidence</h3>
       <form className="ja-form" onSubmit={handleUpload}>
-        <input value={caseId} onChange={(e) => setCaseId(e.target.value)} placeholder="Case ID" className="ja-input" />
-        <input value={fileName} onChange={(e) => setFileName(e.target.value)} placeholder="Evidence name (simulate)" className="ja-input" />
+        <input value={caseId} onChange={(e) => setCaseId(e.target.value)} placeholder="Case ID (e.g., C001)" className="ja-input" />
+        <input value={fileName} onChange={(e) => setFileName(e.target.value)} placeholder="Evidence name" className="ja-input" />
         <button className="ja-btn" type="submit">Add Evidence</button>
       </form>
       {msg && <div className="ja-info">{msg}</div>}

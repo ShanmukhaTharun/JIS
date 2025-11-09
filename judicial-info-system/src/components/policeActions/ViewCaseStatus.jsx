@@ -15,7 +15,7 @@ export default function ViewCaseStatus() {
             marginBottom: "6px",
           }}
         >
-          <strong>{c.id}</strong>: {c.accused} — <em>{c.status}</em>
+          <strong>{c.id}</strong>: {Array.isArray(c.accused) ? c.accused.join(", ") : c.accused} — <em>{c.status}</em>
         </div>
       ))}
     </div>

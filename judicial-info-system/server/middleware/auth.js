@@ -1,0 +1,24 @@
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+
+export async function verifyToken(req, res, next) {
+  try {
+    const auth = req.headers.authorization || '';
+    const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+    if (!token) return res.status(401).json({ error: 'Missing token' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'devsecret');
+    req.auth = decoded;
+    if (decoded?.sub) {
+      const user = await User.findOne({ id: decoded.sub });
+      if (user) req.user = { id: user.id, role: user.role, email: user.email, fullName: user.fullName };
+    }
+    return next();
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
+export function requireAuth(req, res, next) {
+  if (!req.auth) return res.status(401).json({ error: 'Unauthorized' });
+  return next();
+}

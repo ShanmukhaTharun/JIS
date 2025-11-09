@@ -1,8 +1,8 @@
 .ja-panel { padding: 10px 6px; }
-.ja-form { display:flex; flex-direction:column; gap:10px; max-width:720px; }
-.ja-input { padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px; }
-.ja-textarea { min-height:120px; padding:10px; border:1px solid #ddd; border-radius:6px; font-size:14px; }
-.ja-btn { align-self:flex-start; padding:10px 14px; background:#b22222; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+.ja-form { display:flex; flex-direction:column; gap:12px; max-width:780px; }
+.ja-input { padding:14px 16px; border:1.5px solid #ddd; border-radius:8px; font-size:16px; }
+.ja-textarea { min-height:140px; padding:14px 16px; border:1.5px solid #ddd; border-radius:8px; font-size:16px; }
+.ja-btn { align-self:flex-start; padding:12px 18px; background:#b22222; color:#fff; border:none; border-radius:8px; cursor:pointer; }
 .ja-btn:hover { background:#d13a3a; }
 .ja-info { margin-top:10px; color:#0d6b0d; background:#ecffdce0; padding:8px; border-radius:6px; }
 .ja-error { margin-top:10px; color:#a10000; background:#ffecec; padding:8px; border-radius:6px; }

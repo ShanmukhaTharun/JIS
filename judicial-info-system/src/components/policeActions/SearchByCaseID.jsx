@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { useCases } from "../../context/CasesContext.jsx";
 
 export default function SearchByCaseID() {
   const [caseId, setCaseId] = useState("");
   const [result, setResult] = useState(null);
 
+  const { cases } = useCases();
   const handleSearch = () => {
-    const found = sampleCases.find((c) => c.id === caseId);
+    const found = cases.find((c) => c.id === caseId);
     setResult(found || "No case found.");
   };
 

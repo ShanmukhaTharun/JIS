@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { sampleCases, uploadDocuments } from "../../data/sampleCases";
 
 export default function UploadDocuments() {
   const [selectedCase, setSelectedCase] = useState(sampleCases[0].id);
   const [fileName, setFileName] = useState("");
 
   const handleUpload = () => {
-    if (fileName) {
-      alert(`Uploaded file "${fileName}" for case ${selectedCase}`);
-      setFileName("");
-    }
+    const name = fileName.trim();
+    if (!name) return;
+    uploadDocuments(selectedCase, [{ name, uploadedAt: new Date().toISOString().slice(0,10) }]);
+    alert(`Uploaded file "${name}" for case ${selectedCase}`);
+    setFileName("");
   };
 
   return (

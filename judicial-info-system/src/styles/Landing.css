@@ -1,0 +1,139 @@
+/* Landing Page Styles */
+
+/* Carousel wrapper */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 60vh;
+  border-bottom: 4px solid #b30000;
+  background: #000;
+}
+
+.carousel-inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  filter: brightness(0.75);
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  max-width: 60ch;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.carousel-caption h2 {
+  font-family: "Merriweather", serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.carousel-caption p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* Feature Cards Section */
+.cards {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.25rem 2rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 6px 20px -4px rgba(0,0,0,0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(179,0,0,0.08), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.card h3 {
+  font-family: "Merriweather", serif;
+  font-size: 1.25rem;
+  margin: 0;
+  color: #222;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4rem;
+  color: #555;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px -6px rgba(0,0,0,0.18);
+}
+
+/* Footer override (if legacy .footer element still exists somewhere) */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+  background: #111;
+  color: #ccc;
+  letter-spacing: 0.25px;
+}
+
+.footer p { margin: 0; }
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .carousel { height: 50vh; }
+  .carousel-item img { height: 50vh; }
+  .carousel-caption { padding: 0.75rem 1.25rem; }
+  .cards { margin-top: 2.25rem; }
+  .card { padding: 1.25rem 1.1rem; }
+}
+
+/* Simple fade-in animation for cards */
+.card { animation: fadeSlide 0.6s ease both; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

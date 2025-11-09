@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { sampleCases, submitCaseReport } from "../../data/sampleCases";
 
 export default function SubmitCaseReport() {
   const [selectedCase, setSelectedCase] = useState(sampleCases[0].id);
   const [report, setReport] = useState("");
 
   const handleSubmit = () => {
-    alert(`Report submitted for ${selectedCase}: ${report}`);
+    if (!report.trim()) return;
+    submitCaseReport(selectedCase, report.trim());
+    alert(`Report submitted for ${selectedCase}.`);
     setReport("");
   };
 

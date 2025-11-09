@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+import ProfileSummary from "../components/ProfileSummary";
 
 // Import action components
 import RegisterNewCase from "../components/registrarActions/RegisterNewCase";
@@ -7,9 +8,11 @@ import UpdateCaseInfo from "../components/registrarActions/UpdateCaseInfo";
 import ApproveCaseFiles from "../components/registrarActions/ApproveCaseFiles";
 import AssignCaseToJudge from "../components/registrarActions/AssignCaseToJudge";
 import ManageCourtSchedule from "../components/registrarActions/ManageCourtSchedule";
+import ViewAllCases from "../components/registrarActions/ViewAllCases";
 
 const ACTIONS = [
   "Register New Case",
+  "View All Cases",
   "Update Case Information",
   "Approve Case Files",
   "Assign Case to Judge",
@@ -23,6 +26,8 @@ export default function Registrar() {
     switch (active) {
       case "Register New Case":
         return <RegisterNewCase />;
+      case "View All Cases":
+        return <ViewAllCases />;
       case "Update Case Information":
         return <UpdateCaseInfo />;
       case "Approve Case Files":
@@ -38,6 +43,7 @@ export default function Registrar() {
 
   return (
     <Layout roleName="Registrar" actions={ACTIONS} active={active} setActive={setActive}>
+      <ProfileSummary />
       {renderAction()}
     </Layout>
   );

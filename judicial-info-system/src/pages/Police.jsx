@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+import ProfileSummary from "../components/ProfileSummary";
 
 // Import the action components
 import SearchByCaseID from "../components/policeActions/SearchByCaseID";
@@ -38,6 +39,7 @@ export default function Police() {
 
   return (
     <Layout roleName="Police" actions={ACTIONS} active={active} setActive={setActive}>
+      <ProfileSummary />
       {renderAction()}
     </Layout>
   );

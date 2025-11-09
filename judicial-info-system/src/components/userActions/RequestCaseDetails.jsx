@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { CasesAPI } from "../../services/api";
 
 export default function RequestCaseDetails() {
   const [caseId, setCaseId] = useState("");
   const [result, setResult] = useState(null);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    const found = sampleCases.find((c) => c.id.toLowerCase() === caseId.toLowerCase());
-    setResult(found || "Case not found.");
+    try {
+      const c = await CasesAPI.get(caseId);
+      setResult(c);
+    } catch (err) { setResult("Case not found."); }
   };
 
   return (
@@ -33,10 +35,10 @@ export default function RequestCaseDetails() {
           ) : (
             <>
               <p><strong>Case ID:</strong> {result.id}</p>
-              <p><strong>Title:</strong> {result.caseTitle}</p>
-              <p><strong>Type:</strong> {result.caseType}</p>
+              <p><strong>Title:</strong> {result.title}</p>
+              <p><strong>Type:</strong> {result.type}</p>
               <p><strong>Status:</strong> {result.status}</p>
-              <p><strong>Assigned Lawyer:</strong> {result.assignedLawyer}</p>
+              <p><strong>Assigned Lawyer:</strong> {result.lawyer}</p>
             </>
           )}
         </div>

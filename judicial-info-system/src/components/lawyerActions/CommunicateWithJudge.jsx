@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { sampleCases } from "../../data/sampleCases";
+import { sampleCases, findCase, updateCase } from "../../data/sampleCases";
 
 export default function CommunicateWithJudge() {
   const [selectedCase, setSelectedCase] = useState(sampleCases[0].id);
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
-    alert(`Message sent to Judge for case ${selectedCase}: ${message}`);
+    const m = message.trim();
+    if (!m) return;
+    const c = findCase(selectedCase);
+    if (c) {
+      const messages = Array.isArray(c.messages) ? [...c.messages] : [];
+      messages.push({ from: "lawyer", text: m, at: new Date().toISOString() });
+      updateCase(selectedCase, { messages });
+    }
+    alert(`Message sent to Judge for case ${selectedCase}.`);
     setMessage("");
   };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+import ProfileSummary from "../components/ProfileSummary";
 
 import ViewAssignedCases from "../components/lawyerActions/ViewAssignedCases";
 import SubmitCaseReport from "../components/lawyerActions/SubmitCaseReport";
@@ -37,6 +38,7 @@ export default function Lawyer() {
 
   return (
     <Layout roleName="Lawyer" actions={ACTIONS} active={active} setActive={setActive}>
+      <ProfileSummary />
       {renderContent()}
     </Layout>
   );

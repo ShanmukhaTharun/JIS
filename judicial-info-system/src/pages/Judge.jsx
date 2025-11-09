@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import styles from "./Judge.module.css";
+import ProfileSummary from "../components/ProfileSummary";
 
 import ViewCaseDetails from "../components/judgeActions/ViewCaseDetails";
 import AssignLawyer from "../components/judgeActions/AssignLawyer";
@@ -38,6 +39,7 @@ export default function Judge() {
 
   return (
     <Layout roleName="Judge" actions={ACTIONS} active={active} setActive={setActive}>
+      <ProfileSummary />
       <div className={styles.main}>
         <h2 className={styles.heading}>{active}</h2>
         <div className={styles.placeholder}>{renderContent()}</div>
